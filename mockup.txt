@@ -1,0 +1,18 @@
+CHROME EXTENSION MOCKUP
+
+1. Chrome extension:
+	a. allow user to right click image/highlighted text and add to user cloud
+	b. popup to allow adding text and simple access to cloud
+2. Web user page
+	a. displays all images/links that user has uploaded from chrome extension
+	b. easy drag drop ui to group images/links
+	c. sorting paramaeters
+	d. allow to download all onto a directory (folder)
+		-- give option to compress folder
+	e. allow to easily share to reddit/facebook/twitter etc.
+	f. access other user accounts public pictures
+	g. search for image or object
+3. Back End
+	a. database to store user data
+	b. user accounts connected to each data
+	c. MAYBE store links to images and videos to save space
