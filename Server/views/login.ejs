@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<style>
+	h2{
+		text-align: center;
+	}
+	
+	input[type=text], input[type=password] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+	}
+
+	button {
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
+	}
+
+	.container {
+		padding: 16px;
+	}
+
+	span.psw {
+		float: right;
+		padding-top: 16px;
+	}
+	</style>
+	<body>
+
+	<h2>Steven's Login Page</h2>
+
+	<% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+	
+	<form action="/login" method = "POST">
+	  <div class="container">
+		<label><b>Username</b></label>
+		<input type="text" placeholder="Enter Username" name="email" required>
+
+		<label><b>Password</b></label>
+		<input type="password" placeholder="Enter Password" name="password" required>
+			
+		<button type="submit">Login</button>
+	  </div>
+	</form>
+
+	</body>
+</html>
