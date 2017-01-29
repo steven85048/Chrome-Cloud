@@ -16,3 +16,4 @@ CHROME EXTENSION MOCKUP
 	a. database to store user data
 	b. user accounts connected to each data
 	c. MAYBE store links to images and videos to save space
+	

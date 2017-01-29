@@ -25,7 +25,7 @@ function sendToDatabase (info,tab) {
 	var date = new Date().toJSON().slice(0,10);
 		
 	var jsonObject = {
-		type : selectionType,
+		objType : selectionType,
 		content : objContent,
 		dateAdded : date,
 		name : "Default Name",
@@ -33,7 +33,14 @@ function sendToDatabase (info,tab) {
 		folder : "Default_Folder",
 	};
 	
-	alert(JSON.stringify(jsonObject));
+	//alert(JSON.stringify(jsonObject));
+	
+	var xhr = createCORSRequest("GET", "http://localhost:1234/write");
+	xhr.setRequestHeader("Data", JSON.stringify(jsonObject));
+	
+	xhr.withCredentials = true;
+
+	xhr.send();	
 }
 
 chrome.contextMenus.create({

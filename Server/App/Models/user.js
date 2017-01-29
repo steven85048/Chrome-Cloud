@@ -5,8 +5,18 @@ var userSchema = mongoose.Schema({
 	local : {
 		email : String,
 		password : String,
-	}
-});
+	},
+	
+	data : [{
+		folder: String,
+		content : [{
+			objType : String,
+			content : String, 
+			dateAdded : String,
+			objName : String,
+			description : String,
+		}]
+	}]}, { minimize : false });
 
 userSchema.methods.generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

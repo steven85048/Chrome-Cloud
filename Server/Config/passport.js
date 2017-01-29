@@ -12,6 +12,8 @@ module.exports = function(passport){
 		});
 	});
 	
+	// passport handling for signup
+	
 	passport.use('local-signup', new LocalStrategy({
 		usernameField : 'email',
 		passwordField : 'password',
@@ -30,6 +32,7 @@ module.exports = function(passport){
 						
 						newUser.local.email = email;
 						newUser.local.password = newUser.generateHash(password);
+						newUser.local.data = {};
 						
 						newUser.save(function(err){
 							if (err)
@@ -41,6 +44,8 @@ module.exports = function(passport){
 			});
 		}
 	));
+	
+	// passport handling for login
 	
 	passport.use('local-login', new LocalStrategy({
 		usernameField : 'email',

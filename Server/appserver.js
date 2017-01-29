@@ -11,6 +11,20 @@ var session = require('express-session');
 
 var configDB = require('./config/database.js');
 
+// allow X Http Requests
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Credentials', true);
+	res.header('Access-Control-Allow-Origin', req.headers.origin);
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Data, IDDelete, IDMove');
+	
+	if ('OPTIONS' == req.method) {
+		 res.send(200);
+	} else {
+		next();
+	}
+});
+
 // configure database
 
 mongoose.connect(configDB.url);
@@ -18,10 +32,12 @@ require('./config/passport')(passport);
 
 // set up express
 
+
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser());
 
+app.use(express.static(__dirname + '/views'));
 app.set('view engine', 'ejs')
 
 // initialize passport
@@ -37,4 +53,4 @@ require('./app/routes.js')(app, passport);
 
 // start
 
-app.listen('8000');
+app.listen('1234');
