@@ -1,0 +1,59 @@
+.affix {
+	width: 100%;
+	top: 0;
+	z-index: 4;
+}
+
+.affix + #content {
+      padding-top: 50px;
+  }
+
+#content {
+	padding-left: 200px;
+	padding-right: 15%;
+}
+
+#left_sidebar {
+	 margin-left: -200px;
+	 left: 200px;
+	 width: 130px;
+	 background: #CCC;
+	 position: fixed;
+	 height: 100%;
+	 overflow-y: auto;
+	 z-index: 3;
+}
+
+.element img {
+	width: 100%;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.search {
+	margin-top: 25px;
+}
+
+.selected {
+	background-color: gray;
+	border-style: solid;
+	border-color: white;
+}
+
+.folder {
+	border-style:solid;
+	border-color:#d9d9d9;
+}
+
+i {
+	border-radius: 60px;
+	box-shadow: 0px 0px 2px #888;
+}
+
+.remove-icon {
+	float: right;
+	top: 20px;
+	right: 6px;
+	opacity: 0.8;
+	cursor: pointer;
+}

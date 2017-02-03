@@ -35,7 +35,7 @@ function sendToDatabase (info,tab) {
 	
 	//alert(JSON.stringify(jsonObject));
 	
-	var xhr = createCORSRequest("GET", "http://localhost:1234/write");
+	var xhr = createCORSRequest("GET", "https://chrome-cloud-stuff.herokuapp.com/write");
 	xhr.setRequestHeader("Data", JSON.stringify(jsonObject));
 	
 	xhr.withCredentials = true;
