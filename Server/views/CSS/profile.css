@@ -50,6 +50,12 @@ i {
 	box-shadow: 0px 0px 2px #888;
 }
 
+#add_folder {
+	left: 42%;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
 .remove-icon {
 	float: right;
 	top: 20px;

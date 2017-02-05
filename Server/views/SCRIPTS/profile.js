@@ -4,6 +4,7 @@ window.onload = function() {
 }
 
 var currSelected = [];
+var reloadFolder = true;
 
 /** GLOBAL VARIABLE TO LISTEN WHEN CONTROL IS PRESSED BY USER **/
 
@@ -49,6 +50,19 @@ function deleteElement(cb, objIds, folder){
 	});
 }
 
+function addFolder(folder) {
+	$.ajax({
+		type: "GET",
+		url: "/addFolder",
+		beforeSend: function(request) {
+			request.setRequestHeader("addFolder", folder);
+		},
+		success: function(res) {
+			console.log(res);
+		}
+	})
+}
+
 // gets session data with ajax call to server
 function getData(cb, folder) {
 	$.get('/data', function (res) {
@@ -66,18 +80,54 @@ function getData(cb, folder) {
 		}
 
 		// use array of folders to populate bar
-		var listWrapper = document.getElementById("sidebar-list");
-		for (var i = 0 ; i < folderList.length; i++){
-			var enclosingList = document.createElement('li');
-			var innerLink = document.createElement('a');
-			
-			innerLink.innerHTML = folderList[i];
-			innerLink.setAttribute('class', 'folder');
-			innerLink.setAttribute('href', '#' + folderList[i]);
-			
-			enclosingList.appendChild(innerLink);
-			listWrapper.appendChild(enclosingList);
+		if (reloadFolder){
+			var listWrapper = document.getElementById("sidebar-list");
+			for (var i = 0 ; i < folderList.length; i++){
+				var enclosingList = document.createElement('li');
+				var innerLink = document.createElement('a');
+				
+				innerLink.innerHTML = folderList[i];
+				innerLink.setAttribute('class', 'folder');
+				innerLink.setAttribute('href', '#' + folderList[i]);
+				innerLink.setAttribute('toFolder', folderList[i]);
+				
+				// changes to folder upon click of list element
+				enclosingList.addEventListener('click', function(linkData, cb) {
+					return function(){
+						reloadFolder = false;
+						deleteCurrData();
+						getData(cb, linkData);
+					};
+				}(innerLink.getAttribute('toFolder'), cb));
+				
+				enclosingList.appendChild(innerLink);
+				listWrapper.appendChild(enclosingList);
+			}
 		}
+		
+		// handle the add folder stuff
+		
+		// listener for icon
+		var addFolderIcon = document.getElementById("add_folder");
+		addFolderIcon.addEventListener('click', function() {
+			var addFolderInput = document.getElementById("add_folder_input");
+			var currModifier = addFolderInput.style.display;
+			
+			if (currModifier == "none")
+				addFolderInput.style.display = "block";
+			else
+				addFolderInput.style.display = "none";
+		});
+		
+		// listener for hidden input
+		var addFolderInput = document.getElementById("add_folder_input");
+		addFolderInput.addEventListener('keyup', function(e) {
+			if (e.keyCode == 13) {
+				// add folder to database
+				addFolder(addFolderInput.value);
+				location.reload();
+			}
+		});
 	});
 }
   
@@ -112,9 +162,7 @@ function addDataToPage(data, folder) {
 					
 		var template;
 		var id = data[i]._id;
-		
-		console.log(id);
-		
+				
 		if (objType == 'text'){
 			template = document.getElementById('text-template');
 			template.content.querySelector('p').innerHTML = comp;
@@ -190,6 +238,14 @@ function addDataToPage(data, folder) {
 		cardArea.append(enclosingDiv)
 		
 	}
+}
+
+function deleteCurrData() {
+	var leftDataContainer = $('#data_container_0');
+	var rightDataContainer = $('#data_container_1');
+	
+	leftDataContainer.empty();
+	rightDataContainer.empty();
 }
 
 // manage the current elements so left and right columns are even

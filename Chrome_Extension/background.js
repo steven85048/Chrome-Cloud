@@ -30,7 +30,7 @@ function sendToDatabase (info,tab) {
 		dateAdded : date,
 		name : "Default Name",
 		description : "Stuff Added",
-		folder : "Default_Folder",
+		folder : "New_Folder",
 	};
 	
 	//alert(JSON.stringify(jsonObject));

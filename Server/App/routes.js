@@ -79,6 +79,31 @@ module.exports = function(app, passport){
 		});
 	});
 	
+	// RETURN ARRAY OF ALL FOLDERS
+	
+	app.get('/folderList', isLoggedIn, function(req, res){
+		var user = req.user;
+		
+		var folderArray = [];
+		for (var i = 0 ; i < user.data.length; i++)
+			folderArray.push(user.data[i].folder);
+		
+		res.end(JSON.stringify(folderArray));
+			
+	});
+	
+	// ADDS NEW FOLDER TO LIST
+	
+	app.get('/addFolder', isLoggedIn, function(req, res) {
+		var addFolder = req.get("addFolder");
+		var user = req.user;
+		
+		var template = {folder: addFolder, content: []};
+		user.data.push(template);
+		
+		user.save(function(){ res.end("Added Folder!")});
+	});
+	
 	// HANDLES THE MOVEMENT OF OBJECTS
 	
 	app.get('/move', isLoggedIn, function(req, res) {
